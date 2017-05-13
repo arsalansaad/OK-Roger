@@ -5,6 +5,7 @@ Created on Fri May 12 22:20:26 2017
 @author: HP
 """
 
+import pickle
 import sys
 import argparse
 from collections import Counter
@@ -35,11 +36,17 @@ def main():
     filename = args.filename
     if args.ignore:
         count = word_count(filename,True)
+        file = 'count_ignore.txt'
     else:
         count = word_count(filename,False)
+        file = 'count.txt'
     for item in count:
         print('{}, {}'.format(item,count[item]))
-    print(len(count))
+    
+    print('\nSaving word count to a file...')
+    with open(file, "wb") as myFile:
+        pickle.dump(count, myFile)
+    print('File Saved')
 
 if __name__ == '__main__':
     main()
